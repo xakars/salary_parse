@@ -7,7 +7,6 @@ def get_job_statistic_from_hh(popular_lang):
         page = 0
         pages_number = 1
         page_data = []
-        vacancies_found = 0
         while page < pages_number:
             url = "https://api.hh.ru/vacancies"
             payload = {
