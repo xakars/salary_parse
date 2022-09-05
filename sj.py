@@ -3,6 +3,8 @@ from tools import predict_salary
 
 
 def get_job_statistic_from_sj(token, popular_lang):
+    dev_job_id = 48
+    moscow_town_id = 4
     result = {}
     for lang in popular_lang:
         page = 0
@@ -13,8 +15,8 @@ def get_job_statistic_from_sj(token, popular_lang):
                 "X-Api-App-Id": token
             }
             payloads = {
-                "t": 4,
-                "catalogues": 48,
+                "t": moscow_town_id,
+                "catalogues": dev_job_id,
                 "keyword": f"Программист {lang}",
                 "page": page
             }

@@ -3,6 +3,8 @@ from tools import predict_salary
 
 
 def get_job_statistic_from_hh(popular_lang):
+    dev_job_id = 96
+    moscow_town_id = 1
     result = {}
     for lang in popular_lang:
         page = 0
@@ -11,8 +13,8 @@ def get_job_statistic_from_hh(popular_lang):
         while page < pages_number:
             url = "https://api.hh.ru/vacancies"
             payload = {
-                "professional_role": 96,
-                "area": 1,
+                "professional_role": dev_job_id,
+                "area": moscow_town_id,
                 "text": f"Программист {lang}",
                 "page": page
             }
