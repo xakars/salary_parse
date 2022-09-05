@@ -1,4 +1,5 @@
 import requests
+from tools import predict_salary
 
 
 def get_job_statistic_from_hh(popular_lang):
@@ -36,21 +37,11 @@ def get_salary_statistic(all_vacancies):
     for vacancies in all_vacancies:
         vacancies_found += len(vacancies)
         for vacancy in vacancies:
-            salaries.append(predict_rub_salary_hh(vacancy))
+            salary = vacancy.get("salary")
+            if not salary or salary["currency"] != "RUR":
+                continue
+            salaries.append(predict_salary(salary["from"], salary["to"]))
     filtered_salaries = list(filter(lambda x: x, salaries))
     vacancies_processed = len(filtered_salaries)
     average_salary = sum(filtered_salaries)/vacancies_processed
     return vacancies_found, vacancies_processed, int(average_salary)
-
-
-def predict_rub_salary_hh(vacancy):
-    salary = vacancy.get("salary")
-    if not salary or salary["currency"] != "RUR":
-        return None
-    elif salary["from"] and salary["to"]:
-        return (salary["from"] + salary["to"])//2
-    else:
-        if not salary["from"]:
-            return salary["to"] * 0.8
-        else:
-            return salary["from"] * 1.2

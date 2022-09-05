@@ -1,4 +1,5 @@
 import requests
+from tools import predict_salary
 
 
 def get_job_statistic_from_sj(token, popular_lang):
@@ -39,23 +40,12 @@ def get_salary_statistic(all_vacancies):
     for vacancies in all_vacancies:
         vacancies_found += len(vacancies)
         for vacancy in vacancies:
+            if vacancy["currency"] != 'rub':
+                continue
             salaries.append(predict_salary(
                 vacancy["payment_from"],
-                vacancy["payment_to"],
-                vacancy["currency"]))
+                vacancy["payment_to"]))
     filtered_salaries = list(filter(lambda x: x, salaries))
     vacancies_processed = len(filtered_salaries)
     average_salary = sum(filtered_salaries)/vacancies_processed
     return vacancies_found, vacancies_processed, int(average_salary)
-
-
-def predict_salary(salary_from, salary_to, salary_currency):
-    if not salary_currency:
-        return None
-    if salary_from and salary_to:
-        return (salary_from + salary_to)//2
-    else:
-        if not salary_from:
-            return salary_to * 0.8
-        else:
-            return salary_from * 1.2
