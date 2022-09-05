@@ -1,6 +1,6 @@
 # salary_parse
 
-Project can analyze vacancies from popular russian recruiting sites like hh.ru and superjob.ru
+Project can analyze vacancies from popular russian recruiting sites like [hh.ru](https://hh.ru/) and [superjob.ru](https://www.superjob.ru/)
 
 ### How to install
 Then use `pip` (or `pip3`, if there is a conflict with Python2) to install dependencies:
@@ -12,7 +12,7 @@ superjob.ru require API-token, you need set SJ_TOKEN in .env file:
 SJ_TOKEN=
 ```
 ### How to use
-Run script.py, for example:
+Run `script.py`, for example:
 ```console
 $ python3 script.py
 
