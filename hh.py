@@ -20,9 +20,9 @@ def get_job_statistic_from_hh(popular_lang):
             }
             page_response  = requests.get(url, params=payload)
             page_response.raise_for_status()
-            response_as_json = page_response.json()
-            page_data.append(response_as_json["items"])
-            pages_number = response_as_json["pages"]
+            response = page_response.json()
+            page_data.append(response["items"])
+            pages_number = response["pages"]
             page += 1
         vacancies_found, vacancies_processed, average_salary = get_salary_statistic(page_data)
         result[lang] = {

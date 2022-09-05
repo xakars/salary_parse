@@ -22,10 +22,10 @@ def get_job_statistic_from_sj(token, popular_lang):
             }
             page_response = requests.get(url, params=payloads, headers=header)
             page_response.raise_for_status()
-            page_response_as_json = page_response.json()
-            pages_data.append(page_response_as_json["objects"])
+            response = page_response.json()
+            pages_data.append(response["objects"])
             page += 1
-            if not page_response_as_json["more"]:
+            if not response["more"]:
                 break
         vacancies_found, vacancies_processed, average_salary = get_salary_statistic(pages_data)
         result[lang] = {
