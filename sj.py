@@ -49,5 +49,8 @@ def get_salary_statistic(all_vacancies):
                 vacancy["payment_to"]))
     filtered_salaries = list(filter(lambda x: x, salaries))
     vacancies_processed = len(filtered_salaries)
-    average_salary = sum(filtered_salaries)/vacancies_processed
+    if vacancies_processed == 0:
+        average_salary = 0
+    else:
+        average_salary = sum(filtered_salaries)/vacancies_processed
     return vacancies_found, vacancies_processed, int(average_salary)
