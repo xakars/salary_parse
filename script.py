@@ -23,6 +23,7 @@ def create_tabel(title, data):
 
 
 def main():
+    load_dotenv()
     token = os.environ['SJ_TOKEN']
     popular_lang = ["Python", "C", "Java", "C++", "C#", "JavaScript", "PHP", "TypeScript"]
     print(create_tabel('HeadHunter Moscow', get_job_statistic_from_hh(popular_lang)))
@@ -30,5 +31,4 @@ def main():
 
 
 if __name__ == '__main__':
-    load_dotenv()
     main()
