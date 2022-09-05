@@ -8,7 +8,7 @@ def get_job_statistic_from_sj(token, popular_lang):
     result = {}
     for lang in popular_lang:
         page = 0
-        pages_data = []
+        all_pages_data = []
         while True:
             url = "https://api.superjob.ru/2.0/vacancies/"
             header = {
@@ -23,11 +23,11 @@ def get_job_statistic_from_sj(token, popular_lang):
             page_response = requests.get(url, params=payloads, headers=header)
             page_response.raise_for_status()
             response = page_response.json()
-            pages_data.append(response["objects"])
+            all_pages_data.append(response["objects"])
             page += 1
             if not response["more"]:
                 break
-        vacancies_found, vacancies_processed, average_salary = get_salary_statistic(pages_data)
+        vacancies_found, vacancies_processed, average_salary = get_salary_statistic(all_pages_data)
         result[lang] = {
             "vacancies_found": vacancies_found,
             "vacancies_processed": vacancies_processed,

@@ -9,7 +9,7 @@ def get_job_statistic_from_hh(popular_lang):
     for lang in popular_lang:
         page = 0
         pages_number = 1
-        page_data = []
+        all_pages_data = []
         while page < pages_number:
             url = "https://api.hh.ru/vacancies"
             payload = {
@@ -21,10 +21,10 @@ def get_job_statistic_from_hh(popular_lang):
             page_response  = requests.get(url, params=payload)
             page_response.raise_for_status()
             response = page_response.json()
-            page_data.append(response["items"])
+            all_pages_data.append(response["items"])
             pages_number = response["pages"]
             page += 1
-        vacancies_found, vacancies_processed, average_salary = get_salary_statistic(page_data)
+        vacancies_found, vacancies_processed, average_salary = get_salary_statistic(all_pages_data)
         result[lang] = {
                 "vacancies_found": vacancies_found,
                 "vacancies_processed": vacancies_processed,
