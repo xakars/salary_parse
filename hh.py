@@ -24,7 +24,7 @@ def get_job_statistic_from_hh(popular_lang):
             all_pages.append(response["items"])
             pages_number = response["pages"]
             page += 1
-        vacancies_found, vacancies_processed, average_salary = get_salary_statistic(all_pages_data)
+        vacancies_found, vacancies_processed, average_salary = get_salary_statistic(all_pages)
         vacancies_statistic[lang] = {
                 "vacancies_found": vacancies_found,
                 "vacancies_processed": vacancies_processed,
