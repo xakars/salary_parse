@@ -5,11 +5,11 @@ from tools import predict_salary
 def get_job_statistic_from_hh(popular_lang):
     dev_job_id = 96
     moscow_town_id = 1
-    result = {}
+    vacancies_statistic = {}
     for lang in popular_lang:
         page = 0
         pages_number = 1
-        all_pages_data = []
+        all_pages = []
         while page < pages_number:
             url = "https://api.hh.ru/vacancies"
             payload = {
@@ -21,16 +21,16 @@ def get_job_statistic_from_hh(popular_lang):
             page_response  = requests.get(url, params=payload)
             page_response.raise_for_status()
             response = page_response.json()
-            all_pages_data.append(response["items"])
+            all_pages.append(response["items"])
             pages_number = response["pages"]
             page += 1
         vacancies_found, vacancies_processed, average_salary = get_salary_statistic(all_pages_data)
-        result[lang] = {
+        vacancies_statistic[lang] = {
                 "vacancies_found": vacancies_found,
                 "vacancies_processed": vacancies_processed,
                 "average_salary": average_salary
         }
-    return result
+    return vacancies_statistic
 
 
 def get_salary_statistic(all_vacancies):

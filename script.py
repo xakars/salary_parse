@@ -5,19 +5,19 @@ from sj import get_job_statistic_from_sj
 from hh import get_job_statistic_from_hh
 
 
-def create_tabel(title, data):
-    table_data = [
+def create_tabel(title, vacancies_statistic):
+    table = [
         ('Язык программирования', 'Найдено вакансий', 'Обработано вакансий', 'Средняя зарплата'),
     ]
-    for lang in data:
-        tmp_data = []
-        tmp_data.append(lang)
-        tmp_data.append(data[lang]["vacancies_found"])
-        tmp_data.append(data[lang]["vacancies_processed"])
-        tmp_data.append(data[lang]["average_salary"])
-        table_data.append(tmp_data)
+    for lang in vacancies_statistic:
+        table_row = []
+        table_row.append(lang)
+        table_row.append(vacancies_statistic[lang]["vacancies_found"])
+        table_row.append(vacancies_statistic[lang]["vacancies_processed"])
+        table_row.append(vacancies_statistic[lang]["average_salary"])
+        table.append(table_row)
 
-    table_instance = AsciiTable(table_data, title)
+    table_instance = AsciiTable(table, title)
     table_instance.justify_columns[4] = 'right'
     return table_instance.table
 

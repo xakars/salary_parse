@@ -5,7 +5,7 @@ from tools import predict_salary
 def get_job_statistic_from_sj(token, popular_lang):
     dev_job_id = 48
     moscow_town_id = 4
-    result = {}
+    vacancies_statistic = {}
     for lang in popular_lang:
         page = 0
         all_pages_data = []
@@ -28,12 +28,12 @@ def get_job_statistic_from_sj(token, popular_lang):
             if not response["more"]:
                 break
         vacancies_found, vacancies_processed, average_salary = get_salary_statistic(all_pages_data)
-        result[lang] = {
+        vacancies_statistic[lang] = {
             "vacancies_found": vacancies_found,
             "vacancies_processed": vacancies_processed,
             "average_salary": average_salary
         }
-    return result
+    return vacancies_statistic
 
 
 def get_salary_statistic(all_vacancies):
